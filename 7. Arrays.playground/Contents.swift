@@ -71,25 +71,31 @@ var peter3 = "r6"
 var peter4 = "99"
 
 let arrayOfOptionalInts = [Int(peter),Int(peter1),Int(peter2),Int(peter3),Int(peter4)]
-var summation = 0
 
+var summation = 0
 //forced unwrapping
 for i in arrayOfOptionalInts {
   if i != nil {
     summation += i!
   }
 }
+print(summation)
+
 //optional binding
-for i in arrayOfOptionalInts {
-  if let element = i {
-    summation += element
+var summary = 0
+for element in arrayOfOptionalInts {
+  if let temporaryConstant = element {
+    summary += temporaryConstant
   }
 }
-// nil coalescing operator
 
+print(summary)
+// nil coalescing operator
+var sum41 = 0
 for value in arrayOfOptionalInts {
-   summation += value ?? 0
+   sum41 += value ?? 0
 }
+print(sum41)
 
 /*
  3. создайте строку алфавит и пустой массив строк
