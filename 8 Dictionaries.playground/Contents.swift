@@ -28,6 +28,7 @@ for i in studentGradeList.values {
 print(" The summation of group effort is \(totalGrade)")
 let averageGrade = Int(round(Double(totalGrade)/Double(studentGradeList.count)))
 print(" Total mark for a group is \(totalGrade)  and an average value \(averageGrade)")
+
 //2
 let months = ["jan" : 31, "feb": 28, "march" : 31, "apr" : 31, "may" : 31, "june" : 31, "july" : 31, "aug" : 31,"sep" : 31, "oct" : 31, "nov" : 31, "dec" : 31]
 
