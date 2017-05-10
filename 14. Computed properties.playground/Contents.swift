@@ -84,8 +84,6 @@ struct Student {
       case November
       case December
     }
-
-    //2. Добавить студенту property «Дата рождения» (пусть это будет еще одна структура, содержащая день, месяц, год) и два computed property: первое — вычисляющее его возраст, второе — вычисляющее, сколько лет он учился (считать, что он учился в школе с 6 лет, если студенту меньше 6 лет — возвращать 0)
   }
   
   var age: Int {
@@ -98,28 +96,80 @@ struct Student {
   var ageOfStudies: Int {
     return age > 6 ? age - 6 : 0
   }
-  
 }
 
 var some = Student(firstName: "Violetta", lastName: "Illarionova", dateOfBirth: Student.DateOfBirth(day: 2, month: .July, year: 1993))
 some.firstName
 some.lastName
 some.fullName
-
 some.firstName = "ZhanEtta"
 some.fullName
-
 some.fullName = "ViolettushKa Illarionova"
 some.fullName
-
 func printStudentData(student: Student) {
-  print("Student \(student.firstName) \(student.lastName), \(student.age) year, \(student.ageOfStudies) year studies")
+  print("Student \(student.firstName) \(student.lastName), \(student.age) year, \(student.ageOfStudies) year of studies")
 }
-
 printStudentData(student: some)
 
+//
+//3. 3. Создать структуру "отрезок", у которой два свойства - точка "А" и точка "В", которые в свою очередь тоже структуры (не стандартные, а наши собственные)
+//Также отрезок имеет вычисляемые свойства (они изменяют точки "А" и "В", если мы изменяем следующие свойства):
+//-midPoint - середина отрезка (при её изменении, отрезок смещается на параллельную прямую, проходящую через наш midPoint?)
+//-длина отрезка (при изменении, точка "А" остается, а точка "В" движется)
 
-//3. Создать структуру «Отрезок», содержащую две внутренние структуры «Точки». Структуру «Точка» создать самостоятельно, несмотря на уже имеющуюся в Swift’е. Таким образом, структура «Отрезок» содержит две структуры «Точки» — точки A и B (stored properties). Добавить два computed properties: « середина отрезка» и «длина» (считать математическими функциями)
 
-//4. При изменении середины отрезка должно меняться положение точек A и B. При изменении длины, меняется положение точки B
+struct Segment {
+  
+  struct Point {
+    var x: Double
+    var y: Double
+  }
+  
+  var pointA: Point
+  var pointB: Point
+  
+  var middlePoint: Point {
+    get {
+      let midPointX = (pointA.x + pointB.x) / 2
+      let midPointY = (pointA.y + pointB.y) / 2
+      return Point(x: midPointX, y: midPointY)
+    }
+    set {
+      let anotherX = newValue.x - middlePoint.x
+      let anotherY = newValue.y - middlePoint.y
+      
+      pointA.x += anotherX
+      pointB.x += anotherX
+      
+      pointA.y += anotherY
+      pointB.y += anotherY
+    }
+  }
+  
+  var length: Double {
+    get {
+      return sqrt( pow((pointB.x - pointA.x), 2.0) + pow((pointB.y - pointA.y), 2.0))
+    }
+    set {
+      pointB = Point(x:pointA.x + (pointB.x - pointA.x) * newValue / length, y: pointA.y + (pointB.y - pointB.y) * newValue / length)
+    }
+  }
+} 
+
+var someSegment = Segment(pointA: Segment.Point(x: 1, y: 5), pointB: Segment.Point(x: 15, y: 30))
+
+someSegment.length
+someSegment.middlePoint.x
+someSegment.middlePoint.y
+
+
+
+
+
+
+
+
+
+
+
 
